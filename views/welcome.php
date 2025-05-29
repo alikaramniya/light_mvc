@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <?= html($user?->name) ?>
     <h3>Message for welcome page</h3>
 </body>
 

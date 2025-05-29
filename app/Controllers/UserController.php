@@ -18,8 +18,22 @@ class UserController
 
     public function index(Request $request, Response $response, $args)
     {
-        return $this->renderer->render($response, 'welcome.php', [
-            'user' => $this->user->find(1)
-        ]);
+        return $this->renderer->render($response, 'welcome.php');
+    }
+
+    public function registerForm(Request $request, Response $response)
+    {
+        return $this->renderer->render($response, 'auth/register.php');
+    }
+
+    public function register(Request $request, Response $response)
+    {
+        $data = $request->getParsedBody();
+
+        $res = $this->user->insert($data);
+
+        $response->getBody()->write($res ? 'Success' : 'Failed');
+
+        return $response;
     }
 }

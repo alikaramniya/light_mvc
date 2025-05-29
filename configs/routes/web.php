@@ -8,4 +8,6 @@ return function (App $app) {
     $app->get('/', [HomeController::class, 'index']);
 
     $app->get('/user', [UserController::class, 'index']);
+    $app->get('/register', [UserController::class, 'registerForm']);
+    $app->post('/register', [UserController::class, 'register']);
 };

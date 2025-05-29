@@ -26,4 +26,21 @@ class User extends Model
 
         return null;
     }
+
+    public function insert(array $data)
+    {
+        $stmt = $this->db->prepare(
+            <<<SQL
+                INSERT INTO users(name, email, password) VALUES (:name, :email, :password)
+                SQL
+        );
+
+        $result = $stmt->execute([
+            'name'     => $data['name'],
+            'email'    => $data['email'],
+            'password' => password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => 12]),
+        ]);
+
+        return $result;
+    }
 }
