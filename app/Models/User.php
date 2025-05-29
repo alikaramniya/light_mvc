@@ -27,6 +27,25 @@ class User extends Model
         return null;
     }
 
+    public function exists(array $field): bool
+    {
+        $key = array_key_first($field);
+
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE $key=:$key");
+
+        $stmt->bindParam(":$key", $field[$key]);
+
+        $stmt->execute();
+
+        $user = $stmt->fetch();
+
+        if ($user) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function insert(array $data)
     {
         $stmt = $this->db->prepare(

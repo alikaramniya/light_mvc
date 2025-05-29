@@ -4,6 +4,8 @@ use App\Core\Config;
 use App\Core\DB;
 use Dotenv\Dotenv;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
 use Slim\Factory\AppFactory;
 use Slim\Views\PhpRenderer;
 use Slim\App;
@@ -25,7 +27,8 @@ return [
 
         return $app;
     },
-    Config::class      => create(Config::class)->constructor(require CONFIG_PATH . '/app.php'),
-    PhpRenderer::class => create(PhpRenderer::class)->constructor(VIEW_PATH),
-    DB::class          => fn(Config $config) => new DB($config),
+    Config::class                   => create(Config::class)->constructor(require CONFIG_PATH . '/app.php'),
+    PhpRenderer::class              => create(PhpRenderer::class)->constructor(VIEW_PATH),
+    DB::class                       => fn(Config $config) => new DB($config),
+    ResponseFactoryInterface::class => fn(App $app) => $app->getResponseFactory()
 ];
