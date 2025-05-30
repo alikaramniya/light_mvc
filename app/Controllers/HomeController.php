@@ -10,10 +10,9 @@ use Slim\Views\PhpRenderer;
 
 class HomeController
 {
-    public function __construct(private readonly PhpRenderer $renderer)
-    {
-        
-    }
+    public function __construct(
+        private readonly PhpRenderer $renderer
+    ) {}
 
     public function index(Request $request, Response $response, $args)
     {

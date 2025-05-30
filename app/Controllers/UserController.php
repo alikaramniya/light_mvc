@@ -43,9 +43,7 @@ class UserController
             }, 'confirm-password')
             ->message('user curently created');
 
-        if ($v->validate()) {
-            exit('ok');
-        } else {
+        if (!$v->validate()) {
             throw new ValidationException($v->errors());
         }
 
