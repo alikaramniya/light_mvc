@@ -85,4 +85,9 @@ class UserController
 
         return $response->withHeader('Location', '/')->withStatus(302);
     }
+
+    public function dashboard(Request $request, Response $response): Response
+    {
+        return $this->renderer->render($response, 'dashboard.php');
+    }
 }
