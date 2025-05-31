@@ -27,6 +27,8 @@ class StartSessionMiddleware implements MiddlewareInterface
             throw new SessionException('Header run already');
         }
 
+        session_set_cookie_params(['secure' => true, 'httponly' => true, 'samesite' => 'lax']);
+
         session_start();
 
         $response = $handler->handle($request);

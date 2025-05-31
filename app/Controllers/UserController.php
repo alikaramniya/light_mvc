@@ -53,4 +53,36 @@ class UserController
 
         return $response;
     }
+
+    public function loginForm(Request $request, Response $response): Response
+    {
+        return $this->renderer->render($response, 'auth/login.php');
+    }
+
+    public function login(Request $request, Response $response): Response
+    {
+        $data = $request->getParsedBody();
+
+        $v = new Validator($data);
+
+        $v
+            ->rule('required', array_keys($data))
+            ->rule('email', 'email');
+
+        if (!$v->validate()) {
+            throw new ValidationException($v->errors());
+        }
+
+        $user = $this->user->findColumn('email', $data['email']);
+
+        if (!$user || !password_verify($data['password'], $user->password)) {
+            throw new ValidationException(['password' => ['Email or Password is incorrect']]);
+        }
+
+        session_regenerate_id();
+
+        $_SESSION['user'] = $user->id;
+
+        return $response->withHeader('Location', '/')->withStatus(302);
+    }
 }

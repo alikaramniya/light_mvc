@@ -5,13 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <style>
+        form {
+            input {
+                font-size: 18px;
+                margin: 5px;
+                width: 230px;
+                height: 20px;
+                outline: none;
+            }
+            .border-red {
+                border:2px solid red;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <form action="/Login" method="post">
-        <input type="email" name="email" placeholder="Enter email" id=""><br />
-        <input type="password" name="password" placeholder="Enter password" id=""><br />
-        <button>Login</button>
+    <form action="/login" method="post">
+        <input type="email" value="<?= @$old['email'] ?>" name="email" class="<?= isset($errors['email'][0]) ? 'border-red' : '' ?>" placeholder="Enter email" id="">
+        <?= showError(@$errors['email']) ?>
+        <input type="password" name="password" class="<?= isset($errors['password'][0]) ? 'border-red' : '' ?>" placeholder="Enter password" id="">
+         <?= showError(@$errors['password']) ?>
+        <button>register</button>
     </form>
 </body>
 

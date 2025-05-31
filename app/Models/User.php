@@ -50,7 +50,7 @@ class User extends Model
     {
         $stmt = $this->db->prepare(
             <<<SQL
-                INSERT INTO users(name, email, password) VALUES (:name, :email, :password)
+                INSERT INTO {$this->table}(name, email, password) VALUES (:name, :email, :password)
                 SQL
         );
 
@@ -61,5 +61,16 @@ class User extends Model
         ]);
 
         return $result;
+    }
+
+    public function findColumn(string $column, mixed $value)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE $column=:$column");
+
+        $stmt->bindParam(":$column", $value);
+
+        $stmt->execute();
+
+        return $stmt->fetch();
     }
 }
