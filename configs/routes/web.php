@@ -15,4 +15,6 @@ return function (App $app) {
     $app->post('/register', [UserController::class, 'register'])->add(GuestMiddleware::class);
     $app->get('/login', [UserController::class, 'loginForm'])->add(GuestMiddleware::class);
     $app->post('/login', [UserController::class, 'login'])->add(GuestMiddleware::class);
+
+    $app->get('/logout', [UserController::class, 'logout'])->add(AuthMiddleware::class);
 };

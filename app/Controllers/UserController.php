@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Contracts\AuthInterface;
+use App\Contracts\SessionInterface;
 use App\Exceptions\ValidationException;
 use App\Models\User;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -14,8 +16,10 @@ use Valitron\Validator;
 class UserController
 {
     public function __construct(
-        private PhpRenderer $renderer,
-        private User $user
+        private readonly PhpRenderer $renderer,
+        private readonly User $user,
+        private readonly AuthInterface $auth,
+        private readonly SessionInterface $session
     ) {}
 
     public function index(Request $request, Response $response, $args)
@@ -39,19 +43,19 @@ class UserController
             ->rule('email', 'email')
             ->rule('equals', 'password', 'confirm-password')
             ->rule(function ($field, $value, $params, $fields) use ($data) {
-                return !$this->user->exists(['email' => $data['email']]);
+                return ! $this->user->exists(['email' => $data['email']]);
             }, 'confirm-password')
             ->message('user curently created');
 
-        if (!$v->validate()) {
+        if (! $v->validate()) {
             throw new ValidationException($v->errors());
         }
 
-        $res = $this->user->insert($data);
+        $lastId = $this->user->insert($data);
 
-        $response->getBody()->write($res ? 'Success' : 'Failed');
+        $this->session->put('user', (int) $lastId);
 
-        return $response;
+        return $response->withHeader('Location', '/dashboard')->withStatus(302);
     }
 
     public function loginForm(Request $request, Response $response): Response
@@ -69,25 +73,26 @@ class UserController
             ->rule('required', array_keys($data))
             ->rule('email', 'email');
 
-        if (!$v->validate()) {
+        if (! $v->validate()) {
             throw new ValidationException($v->errors());
         }
 
-        $user = $this->user->findColumn('email', $data['email']);
-
-        if (!$user || !password_verify($data['password'], $user->password)) {
+        if (! $this->auth->attemptLogin($data)) {
             throw new ValidationException(['password' => ['Email or Password is incorrect']]);
         }
 
-        session_regenerate_id();
-
-        $_SESSION['user'] = $user->id;
-
-        return $response->withHeader('Location', '/')->withStatus(302);
+        return $response->withHeader('Location', '/dashboard')->withStatus(302);
     }
 
     public function dashboard(Request $request, Response $response): Response
     {
         return $this->renderer->render($response, 'dashboard.php');
+    }
+
+    public function logout(Request $request, Response $response): Response
+    {
+        $this->auth->logout();
+
+        return $response->withHeader('Location', '/login')->withStatus(302);
     }
 }

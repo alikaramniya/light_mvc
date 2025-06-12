@@ -6,6 +6,7 @@
     <title>Dashboard</title>
 </head>
 <body>
+    <a href="/logout">logout</a>
    <h3>Dashboard page</h3> 
 </body>
 </html>

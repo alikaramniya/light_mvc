@@ -1,12 +1,10 @@
 <?php
 
 use App\Core\Config;
-use App\Middlewares\{
-    OldFormDataMiddleware,
-    StartSessionMiddleware,
-    ValidationErrorsMiddleware,
-    ValidationExceptionMiddleware,
-};
+use App\Middlewares\OldFormDataMiddleware;
+use App\Middlewares\StartSessionMiddleware;
+use App\Middlewares\ValidationErrorsMiddleware;
+use App\Middlewares\ValidationExceptionMiddleware;
 use Psr\Container\ContainerInterface;
 use Slim\App;
 

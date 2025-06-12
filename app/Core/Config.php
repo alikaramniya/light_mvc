@@ -21,7 +21,7 @@ class Config
         }
 
         foreach ($path as $key) {
-            if (!isset($value[$key])) {
+            if (! isset($value[$key])) {
                 return $default;
             }
 

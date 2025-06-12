@@ -60,7 +60,11 @@ class User extends Model
             'password' => password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => 12]),
         ]);
 
-        return $result;
+        if ($result) {
+            $stmt = $this->db->query('SELECT LAST_INSERT_ID() as id FROM ' . $this->table);
+
+            return $stmt->fetch()->id;
+        }
     }
 
     public function findColumn(string $column, mixed $value)

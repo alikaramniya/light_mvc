@@ -16,14 +16,14 @@ class DB
     public function __construct(Config $config)
     {
         try {
-            $dsn       = [
+            $dsn = [
                 $config->get('pdo.driver'),
                 ':host=',
                 $config->get('pdo.host'),
                 ';dbname=',
                 $config->get('pdo.dbname'),
                 ';charset=',
-                $config->get('pdo.charset')
+                $config->get('pdo.charset'),
             ];
             $this->pdo = new PDO(
                 implode($dsn),
@@ -32,7 +32,7 @@ class DB
                 $config->get('pdo.options'),
             );
         } catch (\PDOException $e) {
-            exit('connection faild: ' . $e->getMessage());
+            exit('connection faild: '.$e->getMessage());
         }
     }
 
