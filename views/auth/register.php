@@ -23,6 +23,7 @@
 
 <body>
     <form action="/register" method="post">
+        <?= $csrf['fields'] ?>
         <input value="<?= @$old['name'] ?>" autofocus type="text" name="name" class="<?= isset($errors['name'][0]) ? 'border-red' : '' ?>" placeholder="Enter name" id="">
         <?= showError(@$errors['name']) ?>
         <input type="email" value="<?= @$old['email'] ?>" name="email" class="<?= isset($errors['email'][0]) ? 'border-red' : '' ?>" placeholder="Enter email" id="">

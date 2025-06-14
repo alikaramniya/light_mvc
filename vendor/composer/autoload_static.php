@@ -28,6 +28,7 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Slim\\Views\\' => 11,
             'Slim\\Psr7\\' => 10,
+            'Slim\\Csrf\\' => 10,
             'Slim\\' => 5,
         ),
         'P' => 
@@ -58,8 +59,6 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         'D' => 
         array (
             'Dotenv\\' => 7,
-            'Database\\Seeders\\' => 17,
-            'Database\\Factories\\' => 19,
             'DI\\Bridge\\Slim\\' => 15,
             'DI\\' => 3,
         ),
@@ -93,6 +92,10 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         'Slim\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/psr7/src',
+        ),
+        'Slim\\Csrf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/slim/csrf/src',
         ),
         'Slim\\' => 
         array (
@@ -144,14 +147,6 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
-        'Database\\Seeders\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laravel/pint/database/seeders',
-        ),
-        'Database\\Factories\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laravel/pint/database/factories',
-        ),
         'DI\\Bridge\\Slim\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-di/slim-bridge/src',
@@ -163,7 +158,6 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
-            1 => __DIR__ . '/..' . '/laravel/pint/app',
         ),
     );
 

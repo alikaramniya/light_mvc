@@ -1,6 +1,7 @@
 <?php
 
 use App\Core\Config;
+use App\Middlewares\CsrfFieldsMiddleware;
 use App\Middlewares\OldFormDataMiddleware;
 use App\Middlewares\StartSessionMiddleware;
 use App\Middlewares\ValidationErrorsMiddleware;
@@ -11,6 +12,8 @@ use Slim\App;
 return function (App $app, ContainerInterface $container) {
     $config = $container->get(Config::class);
 
+    $app->add(CsrfFieldsMiddleware::class);
+    $app->add('csrf');
     $app->add(ValidationExceptionMiddleware::class);
     $app->add(ValidationErrorsMiddleware::class);
     $app->add(OldFormDataMiddleware::class);

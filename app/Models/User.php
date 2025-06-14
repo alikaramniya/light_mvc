@@ -55,13 +55,13 @@ class User extends Model
         );
 
         $result = $stmt->execute([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
+            'name' => $data['name'],
+            'email' => $data['email'],
             'password' => password_hash($data['password'], PASSWORD_BCRYPT, ['cost' => 12]),
         ]);
 
         if ($result) {
-            $stmt = $this->db->query('SELECT LAST_INSERT_ID() as id FROM ' . $this->table);
+            $stmt = $this->db->query('SELECT LAST_INSERT_ID() as id FROM '.$this->table);
 
             return $stmt->fetch()->id;
         }

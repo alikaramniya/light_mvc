@@ -23,7 +23,7 @@ class Auth implements AuthInterface
         }
 
         $user = $this->userProvider->find($userId);
-        if (!$user) {
+        if (! $user) {
             return null;
         }
 
@@ -34,7 +34,7 @@ class Auth implements AuthInterface
     {
         $user = $this->userProvider->findBy('email', $data['email']);
 
-        if (!$user || !$this->getCredentials($user, $data)) {
+        if (! $user || ! $this->getCredentials($user, $data)) {
             return false;
         }
 

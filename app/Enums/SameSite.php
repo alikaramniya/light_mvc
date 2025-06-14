@@ -6,7 +6,7 @@ namespace App\Enums;
 
 enum SameSite: string
 {
-    case Lax    = 'lax';
-    case None   = 'none';
+    case Lax = 'lax';
+    case None = 'none';
     case Strict = 'strict';
 }

@@ -21,7 +21,7 @@ class Session implements SessionInterface
         }
 
         if (headers_sent($filename, $line)) {
-            throw new SessionException('Header run already in : ' . $filename . ' file' . ' and ' . $line . ' line');
+            throw new SessionException('Header run already in : '.$filename.' file'.' and '.$line.' line');
         }
 
         if ($this->option->name) {
@@ -29,9 +29,9 @@ class Session implements SessionInterface
         }
 
         session_set_cookie_params([
-            'secure'   => $this->option->secure,
+            'secure' => $this->option->secure,
             'httponly' => $this->option->httponly,
-            'samesite' => $this->option->samesite->value
+            'samesite' => $this->option->samesite->value,
         ]);
 
         session_start();

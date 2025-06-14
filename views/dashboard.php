@@ -6,7 +6,10 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <a href="/logout">logout</a>
+    <form action="/logout" method="post">
+        <?= $csrf['fields'] ?>
+        <button>logout</button>
+    </form>
    <h3>Dashboard page</h3> 
 </body>
 </html>
